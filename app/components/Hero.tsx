@@ -50,15 +50,15 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 flex h-full flex-col items-center justify-start pt-[22vh] px-6 text-center">
-        <h1 className="animate-fade-in-up max-w-3xl font-[family-name:var(--font-geist-mono)] text-xl font-medium leading-snug tracking-tight text-white/85 sm:text-2xl md:text-3xl">
-          Find your people.
+        <h1 className="animate-fade-in-up max-w-3xl font-[family-name:var(--font-geist-mono)] text-lg font-medium leading-snug tracking-tight text-white/85 sm:text-xl md:text-2xl">
+          Learn with your peers.
           <br />
-          Make something new.
+          Inspire something new.
         </h1>
 
         <p className="animate-fade-in-up animation-delay-300 mt-4 max-w-lg font-[family-name:var(--font-geist-mono)] text-xs font-light tracking-wide text-white/60 sm:text-sm">
-          Austin Build Club is a group of developers, designers, and pms
-          pushing AI to the limit.
+          Austin Build Club is a group of high-agency tech workers pushing the
+          limits of AI.
         </p>
 
         <div className="animate-fade-in-up animation-delay-600 mt-8">
