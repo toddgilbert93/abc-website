@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import Link from "next/link";
+import { submitMember } from "./actions";
 
 interface FormData {
   fullName: string;
   email: string;
   linkedin: string;
+  livesInAustin: boolean;
   interests: string[];
   aiExperience: string;
   weeklyTime: string;
@@ -48,10 +50,13 @@ const TOTAL_STEPS = 5;
 
 export default function JoinPage() {
   const [step, setStep] = useState(1);
+  const [isPending, startTransition] = useTransition();
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     email: "",
     linkedin: "",
+    livesInAustin: false,
     interests: [],
     aiExperience: "",
     weeklyTime: "",
@@ -87,8 +92,15 @@ export default function JoinPage() {
   };
 
   const handleSubmit = () => {
-    console.log("Form submitted:", formData);
-    setStep(6);
+    setSubmitError(null);
+    startTransition(async () => {
+      const result = await submitMember(formData);
+      if (result.success) {
+        setStep(6);
+      } else {
+        setSubmitError(result.error ?? "Something went wrong.");
+      }
+    });
   };
 
   const toggleInterest = (value: string) => {
@@ -191,6 +203,33 @@ export default function JoinPage() {
                     placeholder="linkedin.com/in/yourprofile"
                   />
                 </div>
+                <label className="flex cursor-pointer items-center gap-3">
+                  <div
+                    className={`flex h-5 w-5 shrink-0 items-center justify-center border transition-colors ${
+                      formData.livesInAustin
+                        ? "border-white/50 bg-white/10"
+                        : "border-white/20 bg-transparent"
+                    }`}
+                  >
+                    {formData.livesInAustin && (
+                      <span className="text-xs text-white">✓</span>
+                    )}
+                  </div>
+                  <input
+                    type="checkbox"
+                    checked={formData.livesInAustin}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        livesInAustin: e.target.checked,
+                      }))
+                    }
+                    className="hidden"
+                  />
+                  <span className="text-sm text-white/60">
+                    I currently live in the Austin Texas Metropolitan Area
+                  </span>
+                </label>
               </div>
             </div>
           )}
@@ -306,6 +345,13 @@ export default function JoinPage() {
           )}
         </div>
 
+        {/* Error message */}
+        {submitError && (
+          <div className="mt-4 border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+            {submitError}
+          </div>
+        )}
+
         {/* Navigation */}
         <div className="mt-10 flex items-center justify-between">
           {step > 1 ? (
@@ -328,9 +374,10 @@ export default function JoinPage() {
           ) : (
             <button
               onClick={handleSubmit}
-              className="border border-white/30 bg-white/10 px-8 py-3 text-xs font-medium uppercase tracking-[0.2em] text-white backdrop-blur-sm transition-all duration-300 hover:border-white/60 hover:bg-white/20"
+              disabled={isPending}
+              className="border border-white/30 bg-white/10 px-8 py-3 text-xs font-medium uppercase tracking-[0.2em] text-white backdrop-blur-sm transition-all duration-300 hover:border-white/60 hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40"
             >
-              Submit
+              {isPending ? "Submitting..." : "Submit"}
             </button>
           )}
         </div>
