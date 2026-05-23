@@ -4,6 +4,7 @@ import {
   Shader,
   Ascii,
   BrightnessContrast,
+  Grayscale,
   GridDistortion,
   ImageTexture,
   SolidColor,
@@ -58,6 +59,7 @@ export default function ShaderEffect() {
         visible={true}
       />
       <GridDistortion intensity={0.3} radius={1.3} />
+      <Grayscale />
     </Shader>
   );
 }
