@@ -1,18 +1,34 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ShaderEffect from "./ShaderEffect";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     const el = containerRef.current;
     if (el) {
       el.classList.add("is-visible");
     }
+  }, []);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLHeadingElement>) => {
+    const el = headingRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+    el.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    const el = headingRef.current;
+    if (!el) return;
+    el.style.setProperty("--mouse-x", "-200px");
+    el.style.setProperty("--mouse-y", "50%");
   }, []);
 
   return (
@@ -51,10 +67,20 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 flex h-full flex-col items-center justify-start pt-[15vh] px-6 text-center">
         <div className="rounded-2xl bg-black/20 px-10 py-10">
-          <h1 className="animate-fade-in-up max-w-3xl font-[family-name:var(--font-geist-mono)] text-lg font-medium leading-snug tracking-tight text-white/85 sm:text-xl md:text-2xl">
+          <h1
+            ref={headingRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="hero-heading animate-fade-in-up max-w-3xl font-[family-name:var(--font-geist-mono)] text-lg font-medium leading-snug tracking-tight text-white/85 sm:text-xl md:text-2xl"
+          >
             Learn with your peers.
             <br />
             Inspire something new.
+            <span className="hero-heading-rainbow" aria-hidden="true">
+              Learn with your peers.
+              <br />
+              Inspire something new.
+            </span>
           </h1>
 
           <p className="animate-fade-in-up animation-delay-300 mt-4 max-w-lg font-[family-name:var(--font-geist-mono)] text-xs font-light tracking-wide text-white/60 sm:text-sm">
