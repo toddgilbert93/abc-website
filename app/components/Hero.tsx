@@ -49,25 +49,27 @@ export default function Hero() {
       </nav>
 
       {/* Content */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-start pt-[22vh] px-6 text-center">
-        <h1 className="animate-fade-in-up max-w-3xl font-[family-name:var(--font-geist-mono)] text-lg font-medium leading-snug tracking-tight text-white/85 sm:text-xl md:text-2xl">
-          Learn with your peers.
-          <br />
-          Inspire something new.
-        </h1>
+      <div className="relative z-10 flex h-full flex-col items-center justify-start pt-[15vh] px-6 text-center">
+        <div className="rounded-2xl bg-black/20 px-10 py-10">
+          <h1 className="animate-fade-in-up max-w-3xl font-[family-name:var(--font-geist-mono)] text-lg font-medium leading-snug tracking-tight text-white/85 sm:text-xl md:text-2xl">
+            Learn with your peers.
+            <br />
+            Inspire something new.
+          </h1>
 
-        <p className="animate-fade-in-up animation-delay-300 mt-4 max-w-lg font-[family-name:var(--font-geist-mono)] text-xs font-light tracking-wide text-white/60 sm:text-sm">
-          Austin Build Club is a group of high-agency tech workers pushing the
-          limits of AI.
-        </p>
+          <p className="animate-fade-in-up animation-delay-300 mt-4 max-w-lg font-[family-name:var(--font-geist-mono)] text-xs font-light tracking-wide text-white/60 sm:text-sm">
+            Austin Build Club is a group of high-agency tech workers pushing the
+            limits of AI.
+          </p>
 
-        <div className="animate-fade-in-up animation-delay-600 mt-8">
-          <Link
-            href="/join"
-            className="inline-block border border-white/30 bg-white/10 px-8 py-3 font-[family-name:var(--font-geist-mono)] text-xs font-medium uppercase tracking-[0.2em] text-white backdrop-blur-sm transition-all duration-300 hover:border-white/60 hover:bg-white/20"
-          >
-            Join Us
-          </Link>
+          <div className="animate-fade-in-up animation-delay-600 mt-8">
+            <Link
+              href="/join"
+              className="inline-block border border-white/30 bg-white/10 px-8 py-3 font-[family-name:var(--font-geist-mono)] text-xs font-medium uppercase tracking-[0.2em] text-white backdrop-blur-sm transition-all duration-300 hover:border-white/60 hover:bg-white/20"
+            >
+              Join Us
+            </Link>
+          </div>
         </div>
       </div>
     </section>
