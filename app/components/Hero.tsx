@@ -86,7 +86,7 @@ export default function Hero() {
           </h1>
 
           <p className="animate-fade-in-up animation-delay-300 mt-4 max-w-lg font-[family-name:var(--font-geist-mono)] text-xs font-light tracking-wide text-white/60 sm:text-sm">
-            Austin Build Club is a group of high-agency tech workers pushing the
+            Austin Build Club is a group of high-agency people pushing the
             limits of AI.
           </p>
 

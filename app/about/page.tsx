@@ -52,7 +52,7 @@ export default function AboutPage() {
           <p>
             There are two requirements to be a part of this community. One, you
             must live in Austin. And two, you must be always actively building
-            something. Personal websites are fine, throwaway tools are great,
+            something. Personal websites are fine, disposable tools are great,
             crazy concepts that fail are amazing.
           </p>
 
