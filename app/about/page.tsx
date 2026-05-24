@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-black">
+    <main className="min-h-screen bg-background">
       {/* Top Bar */}
       <nav className="flex items-center justify-between px-6 py-4 sm:px-10">
         <Link href="/" className="block">

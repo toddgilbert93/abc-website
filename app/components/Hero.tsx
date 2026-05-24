@@ -34,14 +34,16 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative h-screen w-full overflow-hidden bg-black"
+      className="relative h-screen w-full overflow-hidden bg-background"
     >
       {/* Shader Background */}
-      <div className="absolute inset-x-0 bottom-0 z-0 h-full flex items-end">
+      <div className="absolute inset-x-0 bottom-0 z-0 h-full flex items-end mix-blend-lighten">
         <div className="w-full">
           <ShaderEffect />
         </div>
       </div>
+      {/* Shader fade-in overlay */}
+      <div className="absolute inset-0 z-[1] animate-shader-reveal bg-background pointer-events-none" />
 
       {/* Top Bar */}
       <nav className="relative z-20 flex items-center justify-between px-6 py-4 sm:px-10">
@@ -66,7 +68,7 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 flex h-full flex-col items-center justify-start pt-[15vh] px-6 text-center">
-        <div className="rounded-2xl bg-black/20 px-10 py-10">
+        <div className="px-10 py-10">
           <h1
             ref={headingRef}
             onMouseMove={handleMouseMove}

@@ -37,7 +37,7 @@ export async function submitMember(
   if (data.interests.length === 0) {
     return { success: false, error: "Select at least one interest." };
   }
-  const validInterests = ["consumer", "business", "fun", "research"];
+  const validInterests = ["business", "creative", "research", "automation"];
   if (!data.interests.every((i) => validInterests.includes(i))) {
     return { success: false, error: "Invalid interest selection." };
   }

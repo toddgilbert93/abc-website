@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #000000;
+  --background: #1a1208;
   --foreground: #ededed;
 }
 
@@ -60,6 +60,20 @@ body {
   animation: step-enter 0.4s ease-out forwards;
 }
 
+@keyframes shader-reveal {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.animate-shader-reveal {
+  animation: shader-reveal 2.5s ease-out forwards;
+  animation-delay: 800ms;
+}
+
 .hero-heading {
   position: relative;
 }
@@ -69,13 +83,13 @@ body {
   inset: 0;
   background: linear-gradient(
     90deg,
-    #ff0055,
-    #ff6600,
-    #ffee00,
-    #00ff66,
-    #00aaff,
-    #aa00ff,
-    #ff0055
+    #ff4d2e,
+    #ff8c1a,
+    #ffc842,
+    #e6a040,
+    #ff6b3d,
+    #cc4422,
+    #ff4d2e
   );
   -webkit-background-clip: text;
   background-clip: text;

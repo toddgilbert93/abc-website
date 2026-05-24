@@ -16,14 +16,10 @@ interface FormData {
 }
 
 const INTEREST_OPTIONS = [
-  { value: "consumer", label: "Solving consumer problems", tag: "the builder" },
-  { value: "business", label: "Solving business problems", tag: "the operator" },
-  { value: "fun", label: "Making something fun", tag: "the creator" },
-  {
-    value: "research",
-    label: "Research & experimentation",
-    tag: "the explorer",
-  },
+  { value: "business", label: "Solving business problems" },
+  { value: "creative", label: "Creative software" },
+  { value: "research", label: "Research & experimentation" },
+  { value: "automation", label: "Automating workflows" },
 ];
 
 const EXPERIENCE_OPTIONS = [
@@ -115,7 +111,7 @@ export default function JoinPage() {
   // Thank-you screen
   if (step === 6) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-black px-6">
+      <main className="flex min-h-screen items-center justify-center bg-background px-6">
         <div className="animate-fade-in-up max-w-md text-center font-[family-name:var(--font-geist-mono)]">
           <h1 className="text-xl font-medium tracking-tight text-white/85">
             You&apos;re in.
@@ -137,7 +133,7 @@ export default function JoinPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-black px-6">
+    <main className="flex min-h-screen items-center justify-center bg-background px-6">
       <div className="w-full max-w-xl font-[family-name:var(--font-geist-mono)]">
         {/* Stepper */}
         <p className="mb-10 text-xs uppercase tracking-[0.2em] text-white/40">
@@ -253,8 +249,7 @@ export default function JoinPage() {
                         : "border-white/15 bg-transparent text-white/70 hover:border-white/30"
                     }`}
                   >
-                    {option.label}{" "}
-                    <span className="text-white/40">({option.tag})</span>
+                    {option.label}
                   </button>
                 ))}
               </div>
