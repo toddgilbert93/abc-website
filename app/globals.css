@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #1a1208;
+  --background: #0a0e1a;
   --foreground: #ededed;
 }
 
@@ -70,7 +70,7 @@ body {
 }
 
 .animate-shader-reveal {
-  animation: shader-reveal 2.5s ease-out forwards;
+  animation: shader-reveal 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: 800ms;
 }
 

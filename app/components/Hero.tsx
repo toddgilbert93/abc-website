@@ -75,13 +75,13 @@ export default function Hero() {
             onMouseLeave={handleMouseLeave}
             className="hero-heading animate-fade-in-up max-w-3xl font-[family-name:var(--font-geist-mono)] text-lg font-medium leading-snug tracking-tight text-white/85 sm:text-xl md:text-2xl"
           >
-            Learn with your peers.
+            Inspire your peers.
             <br />
-            Inspire something new.
+            Make something new.
             <span className="hero-heading-rainbow" aria-hidden="true">
-              Learn with your peers.
+              Inspire your peers.
               <br />
-              Inspire something new.
+              Make something new.
             </span>
           </h1>
 
