@@ -17,7 +17,7 @@ export default function ShaderEffect() {
       <Ascii
         alphaThreshold={1}
         cellSize={8}
-        characters="~%#*+=-:."
+        characters="ABC"
         fontFamily="Geist Mono"
         gamma={0.25}
         spacing={{
