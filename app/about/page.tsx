@@ -42,11 +42,11 @@ export default function AboutPage() {
 
         <div className="animate-fade-in-up animation-delay-300 mt-10 space-y-6 font-[family-name:var(--font-geist-mono)] text-sm font-light leading-relaxed tracking-wide text-white/60">
           <p>
-            Austin Build Club is a space for local talent to collaborate,
-            create, and bond. Whether you are an experienced developer shipping
-            complex systems, or a product marketer experimenting with process
-            automation, we believe that everyone has something to offer, and
-            none of us are ok without improving.
+            Austin Build Club is a space for local talent to connect,
+            collaborate, and create. Whether you are an experienced developer
+            shipping complex systems, or a product marketer experimenting with
+            process automation, we believe that everyone has something to
+            offer, and we all have room to learn.
           </p>
 
           <p>
