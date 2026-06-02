@@ -5,7 +5,6 @@ import {
   Ascii,
   BrightnessContrast,
   Grayscale,
-  GridDistortion,
   ImageTexture,
   SolidColor,
 } from "shaders/react";
@@ -33,8 +32,8 @@ export default function ShaderEffect() {
           brightness={{
             type: "auto-animate",
             mode: "ping-pong",
-            outputMin: 0.02,
-            outputMax: 0.07,
+            outputMin: 0.05,
+            outputMax: 0.10,
             speed: 1,
             easing: "quad",
           }}
@@ -58,7 +57,7 @@ export default function ShaderEffect() {
         contrast={1}
         visible={true}
       />
-      <GridDistortion intensity={0.3} radius={1.3} />
+
       <Grayscale />
     </Shader>
   );
