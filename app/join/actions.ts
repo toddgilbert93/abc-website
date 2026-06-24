@@ -75,7 +75,7 @@ export async function submitMember(
   // Send notification email (don't block the response on failure)
   try {
     await resend.emails.send({
-      from: "Austin Build Club <onboarding@resend.dev>",
+      from: "Austin Build Club <hello@austinbuildclub.com>",
       to: "toddgilbert93@gmail.com",
       subject: `New ABC Member: ${data.fullName.trim()}`,
       html: `

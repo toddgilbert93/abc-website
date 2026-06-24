@@ -22,7 +22,7 @@ export async function sendContactMessage(data: {
 
   try {
     await resend.emails.send({
-      from: "Austin Build Club <onboarding@resend.dev>",
+      from: "Austin Build Club <hello@austinbuildclub.com>",
       to: "toddgilbert93@gmail.com",
       subject: `ABC Contact: ${data.name.trim()}`,
       html: `
