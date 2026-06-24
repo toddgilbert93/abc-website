@@ -1,20 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import ShaderEffect from "./ShaderEffect";
+import Nav from "./Nav";
 
 export default function Hero() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (el) {
-      el.classList.add("is-visible");
-    }
-  }, []);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLHeadingElement>) => {
     const el = headingRef.current;
@@ -32,48 +24,19 @@ export default function Hero() {
   }, []);
 
   return (
-    <section
-      ref={containerRef}
-      className="relative h-screen w-full overflow-hidden bg-background"
-    >
-      {/* Shader Background */}
-      <div className="absolute inset-x-0 bottom-0 z-0 h-full flex items-end mix-blend-lighten">
-        <div className="w-full">
-          <ShaderEffect />
-        </div>
+    <section className="relative flex min-h-screen flex-col md:flex-row">
+      <div className="absolute inset-x-0 top-0 z-20">
+        <Nav />
       </div>
-      {/* Shader fade-in overlay */}
-      <div className="absolute inset-0 z-[1] animate-shader-reveal bg-background pointer-events-none" />
 
-      {/* Top Bar */}
-      <nav className="relative z-20 flex items-center justify-between px-6 py-4 sm:px-10">
-        <Link href="/" className="block">
-          <Image src="/logo.svg" alt="ABC" width={120} height={48} priority className="opacity-80" />
-        </Link>
-        <div className="flex items-center gap-6">
-          <Link
-            href="/about"
-            className="font-[family-name:var(--font-geist-mono)] text-xs uppercase tracking-[0.15em] text-white/60 transition-colors duration-200 hover:text-white"
-          >
-            About
-          </Link>
-          <Link
-            href="/contact"
-            className="font-[family-name:var(--font-geist-mono)] text-xs uppercase tracking-[0.15em] text-white/60 transition-colors duration-200 hover:text-white"
-          >
-            Contact
-          </Link>
-        </div>
-      </nav>
-
-      {/* Content */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-start pt-[15vh] px-6 text-center">
-        <div className="px-10 py-10">
+      {/* Left column — content */}
+      <div className="flex flex-1 flex-col bg-background">
+        <div className="flex flex-1 flex-col items-start justify-center gap-6 px-8 pb-20 pt-24 sm:px-12 lg:px-16">
           <h1
             ref={headingRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="hero-heading animate-fade-in-up max-w-3xl font-[family-name:var(--font-geist-mono)] text-lg font-medium leading-snug tracking-tight text-white/85 sm:text-xl md:text-2xl"
+            className="hero-heading animate-fade-in-up max-w-xl text-xl font-medium leading-snug tracking-tight text-foreground sm:text-2xl md:text-3xl"
           >
             Inspire your peers.
             <br />
@@ -85,18 +48,36 @@ export default function Hero() {
             </span>
           </h1>
 
-          <p className="animate-fade-in-up animation-delay-300 mt-4 max-w-lg font-[family-name:var(--font-geist-mono)] text-xs font-light tracking-wide text-white/60 sm:text-sm">
+          <p className="animate-fade-in-up animation-delay-300 max-w-md text-xs font-light leading-relaxed tracking-wide text-foreground/60 sm:text-sm">
             Austin Build Club is a group of high-agency people pushing the
             limits of AI.
           </p>
 
-          <div className="animate-fade-in-up animation-delay-600 mt-8">
+          <div className="animate-fade-in-up animation-delay-600 mt-2">
             <Link
               href="/join"
-              className="inline-block border border-white/30 bg-white/10 px-8 py-3 font-[family-name:var(--font-geist-mono)] text-xs font-medium uppercase tracking-[0.2em] text-white backdrop-blur-sm transition-all duration-300 hover:border-white/60 hover:bg-white/20"
+              className="lego lego-green text-xs font-bold uppercase tracking-[0.2em]"
             >
               Join Us
             </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Right column — framed brickified image */}
+      <div className="relative flex flex-1 items-center justify-center overflow-hidden bg-background px-8 py-12 sm:p-12">
+        <div className="animate-float pointer-events-none absolute h-72 w-72 rounded-full bg-accent-cyan/20 blur-3xl" />
+        <div className="relative w-full max-w-sm -rotate-1 rounded-xl bg-white p-3 shadow-[0_24px_60px_rgba(0,0,0,0.20)] ring-1 ring-black/10 transition-transform duration-300 hover:rotate-0">
+          <div className="relative aspect-[2/3] w-full overflow-hidden rounded-md border border-black/10">
+            <Image
+              src="/brickify.png"
+              alt="The Austin skyline, brickified"
+              fill
+              sizes="(max-width: 768px) 90vw, 384px"
+              className="object-cover"
+              priority
+              unoptimized
+            />
           </div>
         </div>
       </div>

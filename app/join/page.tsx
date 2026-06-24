@@ -44,6 +44,27 @@ const TIME_OPTIONS = [
 
 const TOTAL_STEPS = 5;
 
+const STEP_SEGMENT_COLORS = [
+  "bg-accent-cyan",
+  "bg-accent-coral",
+  "bg-accent-green",
+  "bg-accent-cyan",
+  "bg-accent-coral",
+] as const;
+
+const optionClass = (selected: boolean) =>
+  `w-full rounded-xl border-2 px-4 py-3 text-left text-sm transition-all duration-200 ${
+    selected
+      ? "border-accent-cyan bg-accent-cyan/10 text-foreground"
+      : "border-black/10 bg-white text-foreground/70 hover:border-accent-cyan/50 hover:scale-[1.01]"
+  }`;
+
+const inputClass =
+  "w-full rounded-xl border-2 border-black/10 bg-white px-4 py-3 text-sm text-foreground transition-colors placeholder:text-black/30 focus:border-accent-cyan focus:outline-none focus:ring-2 focus:ring-accent-cyan/30";
+
+const primaryButtonClass =
+  "lego lego-green text-xs font-bold uppercase tracking-[0.2em]";
+
 export default function JoinPage() {
   const [step, setStep] = useState(1);
   const [isPending, startTransition] = useTransition();
@@ -112,17 +133,17 @@ export default function JoinPage() {
   if (step === 6) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-background px-6">
-        <div className="animate-fade-in-up max-w-md text-center font-[family-name:var(--font-geist-mono)]">
-          <h1 className="text-xl font-medium tracking-tight text-white/85">
+        <div className="animate-fade-in-up max-w-md text-center">
+          <h1 className="text-xl font-medium tracking-tight text-foreground">
             You&apos;re in.
           </h1>
-          <p className="mt-4 text-sm font-light tracking-wide text-white/50">
+          <p className="mt-4 text-sm font-light tracking-wide text-foreground/60">
             Thanks for joining Austin Build Club. We&apos;ll be in touch soon.
           </p>
           <div className="animate-fade-in-up animation-delay-600 mt-8">
             <Link
               href="/"
-              className="inline-block border border-white/30 bg-white/10 px-8 py-3 text-xs font-medium uppercase tracking-[0.2em] text-white backdrop-blur-sm transition-all duration-300 hover:border-white/60 hover:bg-white/20"
+              className="lego lego-cyan text-xs font-bold uppercase tracking-[0.2em]"
             >
               Back to Home
             </Link>
@@ -134,22 +155,37 @@ export default function JoinPage() {
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-background px-6">
-      <div className="w-full max-w-xl font-[family-name:var(--font-geist-mono)]">
+      <div className="w-full max-w-xl">
         {/* Stepper */}
-        <p className="mb-10 text-xs uppercase tracking-[0.2em] text-white/40">
+        <p className="mb-3 text-xs uppercase tracking-[0.2em] text-foreground/40">
           Step {step} of {TOTAL_STEPS}
         </p>
+        <div className="mb-10 flex gap-1.5">
+          {STEP_SEGMENT_COLORS.map((color, index) => {
+            const segmentStep = index + 1;
+            const isFilled = step >= segmentStep;
+
+            return (
+              <div
+                key={segmentStep}
+                className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${
+                  isFilled ? color : "bg-black/10"
+                }`}
+              />
+            );
+          })}
+        </div>
 
         {/* Step content */}
         <div key={step} className="animate-step-enter">
           {step === 1 && (
             <div>
-              <h2 className="text-lg font-medium tracking-tight text-white/85">
+              <h2 className="text-lg font-medium tracking-tight text-foreground">
                 Basic Information
               </h2>
               <div className="mt-8 space-y-6">
                 <div>
-                  <label className="mb-2 block text-xs uppercase tracking-widest text-white/50">
+                  <label className="mb-2 block text-xs uppercase tracking-widest text-foreground/50">
                     Full Name *
                   </label>
                   <input
@@ -161,12 +197,12 @@ export default function JoinPage() {
                         fullName: e.target.value,
                       }))
                     }
-                    className="w-full border border-white/20 bg-transparent px-4 py-3 text-sm text-white transition-colors placeholder:text-white/30 focus:border-white/50 focus:outline-none"
+                    className={inputClass}
                     placeholder="Your name"
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs uppercase tracking-widest text-white/50">
+                  <label className="mb-2 block text-xs uppercase tracking-widest text-foreground/50">
                     Email Address *
                   </label>
                   <input
@@ -178,12 +214,12 @@ export default function JoinPage() {
                         email: e.target.value,
                       }))
                     }
-                    className="w-full border border-white/20 bg-transparent px-4 py-3 text-sm text-white transition-colors placeholder:text-white/30 focus:border-white/50 focus:outline-none"
+                    className={inputClass}
                     placeholder="you@example.com"
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs uppercase tracking-widest text-white/50">
+                  <label className="mb-2 block text-xs uppercase tracking-widest text-foreground/50">
                     LinkedIn
                   </label>
                   <input
@@ -195,20 +231,20 @@ export default function JoinPage() {
                         linkedin: e.target.value,
                       }))
                     }
-                    className="w-full border border-white/20 bg-transparent px-4 py-3 text-sm text-white transition-colors placeholder:text-white/30 focus:border-white/50 focus:outline-none"
+                    className={inputClass}
                     placeholder="linkedin.com/in/yourprofile"
                   />
                 </div>
                 <label className="flex cursor-pointer items-center gap-3">
                   <div
-                    className={`flex h-5 w-5 shrink-0 items-center justify-center border transition-colors ${
+                    className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-2 transition-colors ${
                       formData.livesInAustin
-                        ? "border-white/50 bg-white/10"
-                        : "border-white/20 bg-transparent"
+                        ? "border-accent-green bg-accent-green"
+                        : "border-black/20 bg-white"
                     }`}
                   >
                     {formData.livesInAustin && (
-                      <span className="text-xs text-white">✓</span>
+                      <span className="text-xs font-bold text-[#0a1014]">✓</span>
                     )}
                   </div>
                   <input
@@ -222,7 +258,7 @@ export default function JoinPage() {
                     }
                     className="hidden"
                   />
-                  <span className="text-sm text-white/60">
+                  <span className="text-sm text-foreground/70">
                     I currently live in the Austin Texas Metropolitan Area
                   </span>
                 </label>
@@ -232,10 +268,10 @@ export default function JoinPage() {
 
           {step === 2 && (
             <div>
-              <h2 className="text-lg font-medium tracking-tight text-white/85">
+              <h2 className="text-lg font-medium tracking-tight text-foreground">
                 What kinds of problems are you most interested in?
               </h2>
-              <p className="mt-2 text-xs tracking-wide text-white/40">
+              <p className="mt-2 text-xs tracking-wide text-foreground/40">
                 Select all that apply.
               </p>
               <div className="mt-8 space-y-3">
@@ -243,11 +279,9 @@ export default function JoinPage() {
                   <button
                     key={option.value}
                     onClick={() => toggleInterest(option.value)}
-                    className={`w-full border px-4 py-3 text-left text-sm transition-all duration-200 ${
+                    className={optionClass(
                       formData.interests.includes(option.value)
-                        ? "border-white/50 bg-white/10 text-white"
-                        : "border-white/15 bg-transparent text-white/70 hover:border-white/30"
-                    }`}
+                    )}
                   >
                     {option.label}
                   </button>
@@ -258,10 +292,10 @@ export default function JoinPage() {
 
           {step === 3 && (
             <div>
-              <h2 className="text-lg font-medium tracking-tight text-white/85">
+              <h2 className="text-lg font-medium tracking-tight text-foreground">
                 What&apos;s your experience building with AI tools?
               </h2>
-              <p className="mt-2 text-xs tracking-wide text-white/40">
+              <p className="mt-2 text-xs tracking-wide text-foreground/40">
                 Select the option that best describes you.
               </p>
               <div className="mt-8 space-y-3">
@@ -274,11 +308,9 @@ export default function JoinPage() {
                         aiExperience: option.value,
                       }))
                     }
-                    className={`w-full border px-4 py-3 text-left text-sm transition-all duration-200 ${
+                    className={optionClass(
                       formData.aiExperience === option.value
-                        ? "border-white/50 bg-white/10 text-white"
-                        : "border-white/15 bg-transparent text-white/70 hover:border-white/30"
-                    }`}
+                    )}
                   >
                     {option.label}
                   </button>
@@ -289,7 +321,7 @@ export default function JoinPage() {
 
           {step === 4 && (
             <div>
-              <h2 className="text-lg font-medium tracking-tight text-white/85">
+              <h2 className="text-lg font-medium tracking-tight text-foreground">
                 How much time can you realistically dedicate to building each
                 week?
               </h2>
@@ -303,14 +335,10 @@ export default function JoinPage() {
                         weeklyTime: option.value,
                       }))
                     }
-                    className={`w-full border px-4 py-3 text-left text-sm transition-all duration-200 ${
-                      formData.weeklyTime === option.value
-                        ? "border-white/50 bg-white/10 text-white"
-                        : "border-white/15 bg-transparent text-white/70 hover:border-white/30"
-                    }`}
+                    className={optionClass(formData.weeklyTime === option.value)}
                   >
                     {option.label}{" "}
-                    <span className="text-white/40">({option.tag})</span>
+                    <span className="text-foreground/40">({option.tag})</span>
                   </button>
                 ))}
               </div>
@@ -319,7 +347,7 @@ export default function JoinPage() {
 
           {step === 5 && (
             <div>
-              <h2 className="text-lg font-medium tracking-tight text-white/85">
+              <h2 className="text-lg font-medium tracking-tight text-foreground">
                 What are you trying to build or understand right now?
               </h2>
               <div className="mt-8">
@@ -332,7 +360,7 @@ export default function JoinPage() {
                     }))
                   }
                   rows={5}
-                  className="w-full resize-none border border-white/20 bg-transparent px-4 py-3 text-sm text-white transition-colors placeholder:text-white/30 focus:border-white/50 focus:outline-none"
+                  className={`${inputClass} resize-none`}
                   placeholder="Tell us what you're working on..."
                 />
               </div>
@@ -342,7 +370,7 @@ export default function JoinPage() {
 
         {/* Error message */}
         {submitError && (
-          <div className="mt-4 border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+          <div className="mt-4 rounded-xl border border-accent-coral/40 bg-accent-coral/10 px-4 py-3 text-sm text-[#b3373c]">
             {submitError}
           </div>
         )}
@@ -352,7 +380,7 @@ export default function JoinPage() {
           {step > 1 ? (
             <button
               onClick={handleBack}
-              className="text-xs uppercase tracking-[0.15em] text-white/40 transition-colors hover:text-white/70"
+              className="text-xs uppercase tracking-[0.15em] text-foreground/40 transition-colors hover:text-accent-coral"
             >
               Back
             </button>
@@ -360,17 +388,14 @@ export default function JoinPage() {
             <div />
           )}
           {step < TOTAL_STEPS ? (
-            <button
-              onClick={handleNext}
-              className="border border-white/30 bg-white/10 px-8 py-3 text-xs font-medium uppercase tracking-[0.2em] text-white backdrop-blur-sm transition-all duration-300 hover:border-white/60 hover:bg-white/20"
-            >
+            <button onClick={handleNext} className={primaryButtonClass}>
               Next
             </button>
           ) : (
             <button
               onClick={handleSubmit}
               disabled={isPending}
-              className="border border-white/30 bg-white/10 px-8 py-3 text-xs font-medium uppercase tracking-[0.2em] text-white backdrop-blur-sm transition-all duration-300 hover:border-white/60 hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-40"
+              className={primaryButtonClass}
             >
               {isPending ? "Submitting..." : "Submit"}
             </button>

@@ -1,20 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0e1a;
-  --foreground: #ededed;
+  --background: #fffdf7;
+  --foreground: #1a1a1f;
+  --accent-cyan: #07daff;
+  --accent-coral: #ff7b7f;
+  --accent-green: #53f686;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-playfair);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-coral: var(--accent-coral);
+  --color-accent-green: var(--accent-green);
+  --font-sans: var(--font-bricolage);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
 
 @keyframes fade-in-up {
@@ -60,18 +66,24 @@ body {
   animation: step-enter 0.4s ease-out forwards;
 }
 
-@keyframes shader-reveal {
-  from {
-    opacity: 1;
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
   }
-  to {
-    opacity: 0;
+  50% {
+    transform: translateY(-14px);
   }
 }
 
-.animate-shader-reveal {
-  animation: shader-reveal 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  animation-delay: 800ms;
+.animate-float {
+  animation: float 7s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  to {
+    background-position: 200% 0;
+  }
 }
 
 .hero-heading {
@@ -81,20 +93,71 @@ body {
 .hero-heading-rainbow {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    #ff4d2e,
-    #ff8c1a,
-    #ffc842,
-    #e6a040,
-    #ff6b3d,
-    #cc4422,
-    #ff4d2e
-  );
+  background: linear-gradient(90deg, #07daff, #53f686, #ff7b7f, #07daff);
+  background-size: 200% 100%;
+  animation: gradient-shift 6s linear infinite;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   pointer-events: none;
   -webkit-mask-image: radial-gradient(circle 80px at var(--mouse-x, -200px) var(--mouse-y, 50%), black 0%, transparent 100%);
   mask-image: radial-gradient(circle 80px at var(--mouse-x, -200px) var(--mouse-y, 50%), black 0%, transparent 100%);
+}
+
+/* ===== Lego-brick buttons ===== */
+.lego {
+  display: inline-block;
+  border: none;
+  border-radius: 8px;
+  padding: 1.15rem 2.1rem;
+  color: #0a1014;
+  cursor: pointer;
+  background: var(--lego-color);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.35),
+    0 7px 0 var(--lego-shadow),
+    0 10px 12px rgba(0, 0, 0, 0.22);
+  transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.12s ease;
+}
+
+.lego:hover {
+  filter: brightness(1.06) saturate(1.05);
+}
+
+.lego:active {
+  transform: translateY(5px);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.35),
+    0 2px 0 var(--lego-shadow),
+    0 3px 6px rgba(0, 0, 0, 0.22);
+}
+
+.lego:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: none;
+}
+
+.lego:disabled:active {
+  transform: none;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.35),
+    0 7px 0 var(--lego-shadow),
+    0 10px 12px rgba(0, 0, 0, 0.22);
+}
+
+.lego-cyan {
+  --lego-color: #07daff;
+  --lego-shadow: #05a3bf;
+}
+
+.lego-coral {
+  --lego-color: #ff7b7f;
+  --lego-shadow: #d6555a;
+  color: #3a0c0d;
+}
+
+.lego-green {
+  --lego-color: #53f686;
+  --lego-shadow: #2fbf60;
 }
