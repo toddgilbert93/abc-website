@@ -31,12 +31,12 @@ export default function Hero() {
 
       {/* Left column — content */}
       <div className="flex flex-1 flex-col bg-background">
-        <div className="flex flex-1 flex-col items-start justify-center gap-6 px-8 pb-20 pt-24 sm:px-12 lg:px-16">
+        <div className="flex flex-1 flex-col items-center justify-center gap-6 px-8 pb-20 pt-24 sm:px-12 lg:px-16 md:items-start">
           <h1
             ref={headingRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="hero-heading animate-fade-in-up max-w-xl text-xl font-medium leading-snug tracking-tight text-foreground sm:text-2xl md:text-3xl"
+            className="hero-heading animate-fade-in-up max-w-xl text-center text-xl font-medium leading-snug tracking-tight text-foreground sm:text-2xl md:text-left md:text-3xl"
           >
             Build what should exist.
             <span className="hero-heading-glow" aria-hidden="true">
@@ -47,7 +47,7 @@ export default function Hero() {
             </span>
           </h1>
 
-          <p className="animate-fade-in-up animation-delay-300 max-w-md text-xs font-light leading-relaxed tracking-wide text-foreground/60 sm:text-sm">
+          <p className="animate-fade-in-up animation-delay-300 max-w-md text-center text-xs font-light leading-relaxed tracking-wide text-foreground/60 sm:text-sm md:text-left">
             Austin Build Club is a group of AI-native builders.
           </p>
 
@@ -58,7 +58,7 @@ export default function Hero() {
             >
               Build
             </Link>
-            <div className="-mt-5 flex w-full items-start justify-between">
+            <div className="-mt-5 flex w-full items-start justify-between max-[420px]:mt-5 max-[420px]:flex-wrap max-[420px]:justify-center max-[420px]:gap-x-2 max-[420px]:gap-y-5">
               <Link
                 href="/about"
                 className="lego lego-sm lego-cyan hinge hinge-about text-sm font-bold tracking-tight"
@@ -76,8 +76,8 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Right column — framed brickified image */}
-      <div className="relative flex flex-1 items-center justify-center overflow-hidden bg-background px-8 py-12 sm:p-12">
+      {/* Right column — framed brickified image (md and up only) */}
+      <div className="relative hidden flex-1 items-center justify-center overflow-hidden bg-background px-8 py-12 sm:p-12 md:flex">
         <div className="animate-float pointer-events-none absolute h-72 w-72 rounded-full bg-accent-cyan/20 blur-3xl" />
         <div className="relative w-full max-w-sm">
           <div className="relative aspect-[2/3] w-full overflow-hidden">
