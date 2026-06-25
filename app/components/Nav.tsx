@@ -25,7 +25,7 @@ export default function Nav() {
       <Link
         href="/"
         onClick={handleClick}
-        className="block transition-transform duration-200 hover:scale-110 hover:-rotate-3"
+        className="block w-fit cursor-pointer transition-transform duration-200 hover:scale-110 hover:-rotate-3"
       >
         <Image
           src="/logo2.svg"
@@ -33,8 +33,12 @@ export default function Nav() {
           width={44}
           height={44}
           priority
-          className={twirling ? "logo-twirl" : ""}
-          onAnimationEnd={() => setTwirling(false)}
+          className={`block ${twirling ? "logo-twirl" : ""}`}
+          onAnimationEnd={() => {
+            setTwirling(false);
+            // After the twirl, wipe the marker doodles.
+            window.dispatchEvent(new Event("abc:clear-doodles"));
+          }}
         />
       </Link>
     </nav>
