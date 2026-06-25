@@ -38,28 +38,40 @@ export default function Hero() {
             onMouseLeave={handleMouseLeave}
             className="hero-heading animate-fade-in-up max-w-xl text-xl font-medium leading-snug tracking-tight text-foreground sm:text-2xl md:text-3xl"
           >
-            Inspire your peers.
-            <br />
-            Make something new.
+            Build what should exist.
+            <span className="hero-heading-glow" aria-hidden="true">
+              Build what should exist.
+            </span>
             <span className="hero-heading-rainbow" aria-hidden="true">
-              Inspire your peers.
-              <br />
-              Make something new.
+              Build what should exist.
             </span>
           </h1>
 
           <p className="animate-fade-in-up animation-delay-300 max-w-md text-xs font-light leading-relaxed tracking-wide text-foreground/60 sm:text-sm">
-            Austin Build Club is a group of high-agency people pushing the
-            limits of AI.
+            Austin Build Club is a group of AI-native builders.
           </p>
 
-          <div className="animate-fade-in-up animation-delay-600 mt-2">
+          <div className="animate-fade-in-up animation-delay-600 mt-2 flex w-full max-w-xs flex-col items-center">
             <Link
               href="/join"
-              className="lego lego-green text-xs font-bold uppercase tracking-[0.2em]"
+              className="lego lego-sm lego-coral hinge hinge-build relative z-10 text-sm font-bold tracking-tight"
             >
-              Join Us
+              Build
             </Link>
+            <div className="-mt-5 flex w-full items-start justify-between">
+              <Link
+                href="/about"
+                className="lego lego-sm lego-cyan hinge hinge-about text-sm font-bold tracking-tight"
+              >
+                About
+              </Link>
+              <Link
+                href="/contact"
+                className="lego lego-sm lego-green hinge hinge-contact text-sm font-bold tracking-tight"
+              >
+                Contact
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -67,10 +79,10 @@ export default function Hero() {
       {/* Right column — framed brickified image */}
       <div className="relative flex flex-1 items-center justify-center overflow-hidden bg-background px-8 py-12 sm:p-12">
         <div className="animate-float pointer-events-none absolute h-72 w-72 rounded-full bg-accent-cyan/20 blur-3xl" />
-        <div className="relative w-full max-w-sm -rotate-1 rounded-xl bg-white p-3 shadow-[0_24px_60px_rgba(0,0,0,0.20)] ring-1 ring-black/10 transition-transform duration-300 hover:rotate-0">
-          <div className="relative aspect-[2/3] w-full overflow-hidden rounded-md border border-black/10">
+        <div className="relative w-full max-w-sm">
+          <div className="relative aspect-[2/3] w-full overflow-hidden">
             <Image
-              src="/brickify.png"
+              src="/bricks2.png"
               alt="The Austin skyline, brickified"
               fill
               sizes="(max-width: 768px) 90vw, 384px"

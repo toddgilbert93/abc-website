@@ -42,7 +42,7 @@ export default function AboutPage() {
         <div className="animate-fade-in-up animation-delay-600 mt-10">
           <Link
             href="/join"
-            className="lego lego-green text-xs font-bold uppercase tracking-[0.2em]"
+            className="lego lego-sm lego-green -rotate-3 text-sm font-bold tracking-tight"
           >
             Join Us
           </Link>

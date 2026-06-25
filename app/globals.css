@@ -14,7 +14,7 @@
   --color-accent-cyan: var(--accent-cyan);
   --color-accent-coral: var(--accent-coral);
   --color-accent-green: var(--accent-green);
-  --font-sans: var(--font-bricolage);
+  --font-sans: var(--font-balsamiq);
 }
 
 body {
@@ -88,46 +88,62 @@ body {
 
 .hero-heading {
   position: relative;
+  /* whimsical magnifying-glass cursor while hovering the heading */
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext y='25' font-size='24'%3E🔍%3C/text%3E%3C/svg%3E")
+      16 16,
+    pointer;
 }
 
+/* Two stacked reveal layers, both masked to the cursor: a bright white base
+   underneath so the accent gradient pops instead of muddying into the dark
+   heading text. Mask holds solid through the center, feathering only at the edge. */
+.hero-heading-glow,
 .hero-heading-rainbow {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #07daff, #53f686, #ff7b7f, #07daff);
-  background-size: 200% 100%;
-  animation: gradient-shift 6s linear infinite;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle 120px at var(--mouse-x, -200px) var(--mouse-y, 50%), black 0%, black 42%, transparent 100%);
+  mask-image: radial-gradient(circle 120px at var(--mouse-x, -200px) var(--mouse-y, 50%), black 0%, black 42%, transparent 100%);
+}
+
+.hero-heading-glow {
+  color: #ffffff;
+}
+
+.hero-heading-rainbow {
+  /* gradient of our three accent colors: cyan -> coral -> green */
+  background: linear-gradient(100deg, #07daff 0%, #ff7b7f 52%, #53f686 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  pointer-events: none;
-  -webkit-mask-image: radial-gradient(circle 80px at var(--mouse-x, -200px) var(--mouse-y, 50%), black 0%, transparent 100%);
-  mask-image: radial-gradient(circle 80px at var(--mouse-x, -200px) var(--mouse-y, 50%), black 0%, transparent 100%);
 }
 
 /* ===== Lego-brick buttons ===== */
 .lego {
   display: inline-block;
-  border: none;
+  border: 2px solid var(--lego-shadow);
+  border-bottom: none;
   border-radius: 8px;
   padding: 1.15rem 2.1rem;
   color: #0a1014;
   cursor: pointer;
   background: var(--lego-color);
   box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.35),
     0 7px 0 var(--lego-shadow),
     0 10px 12px rgba(0, 0, 0, 0.22);
   transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.12s ease;
 }
 
 .lego:hover {
-  filter: brightness(1.06) saturate(1.05);
+  transform: translateY(-3px);
+  box-shadow:
+    0 10px 0 var(--lego-shadow),
+    0 14px 16px rgba(0, 0, 0, 0.24);
 }
 
 .lego:active {
   transform: translateY(5px);
   box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.35),
     0 2px 0 var(--lego-shadow),
     0 3px 6px rgba(0, 0, 0, 0.22);
 }
@@ -141,7 +157,6 @@ body {
 .lego:disabled:active {
   transform: none;
   box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.35),
     0 7px 0 var(--lego-shadow),
     0 10px 12px rgba(0, 0, 0, 0.22);
 }
@@ -149,15 +164,112 @@ body {
 .lego-cyan {
   --lego-color: #07daff;
   --lego-shadow: #05a3bf;
+  color: #064554;
 }
 
 .lego-coral {
   --lego-color: #ff7b7f;
   --lego-shadow: #d6555a;
-  color: #3a0c0d;
+  color: #7a2125;
 }
 
 .lego-green {
   --lego-color: #53f686;
   --lego-shadow: #2fbf60;
+  color: #11623a;
+}
+
+.lego-sm {
+  padding: 0.8rem 1.6rem;
+}
+
+/* ===== Logo twirl on home-screen click ===== */
+@keyframes logo-twirl {
+  0% {
+    transform: rotate(0) scale(1);
+    animation-timing-function: cubic-bezier(0.3, 0, 0.25, 1);
+  }
+  24% {
+    /* wind up: pull back and compress slightly */
+    transform: rotate(-32deg) scale(0.9);
+    animation-timing-function: cubic-bezier(0.6, 0, 0.35, 1);
+  }
+  72% {
+    /* whip forward, overshooting past a full turn */
+    transform: rotate(382deg) scale(1.16);
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+.logo-twirl {
+  animation: logo-twirl 1s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-twirl {
+    animation: none;
+  }
+}
+
+/* ===== Button hinge: right side drops + bounces, cycling across the buttons ===== */
+/* All three buttons share one 21s loop (3 x 7s) and are staggered with negative
+   delays so they fire 7s apart: Build (0s) > Contact (7s) > About (14s) > repeat.
+   Each button keeps its own resting tilt via --rest; the drop is relative to it.
+   The drop+bounce occupies the first ~1.6s of the cycle, then it rests. */
+@keyframes hinge-drop {
+  0% {
+    rotate: var(--rest, -2deg);
+    animation-timing-function: ease-in; /* gravity-like drop */
+  }
+  2.9% {
+    rotate: calc(var(--rest, -2deg) + 9deg); /* right side swings down (subtle) */
+    animation-timing-function: ease-out;
+  }
+  4.8% {
+    rotate: calc(var(--rest, -2deg) - 3deg); /* spring up, overshooting rest */
+    animation-timing-function: ease-in-out;
+  }
+  6.1% {
+    rotate: calc(var(--rest, -2deg) + 1.5deg); /* small secondary settle */
+    animation-timing-function: ease-out;
+  }
+  7.6% {
+    rotate: var(--rest, -2deg);
+  }
+  100% {
+    rotate: var(--rest, -2deg); /* hold until this button's next turn */
+  }
+}
+
+.hinge {
+  transform-origin: left center;
+  animation-name: hinge-drop;
+  animation-duration: 21s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.hinge-build {
+  --rest: -2deg;
+  animation-delay: 0s;
+}
+
+.hinge-contact {
+  --rest: -3deg;
+  animation-delay: -14s;
+}
+
+.hinge-about {
+  --rest: 3deg;
+  animation-delay: -7s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hinge {
+    animation: none;
+    rotate: var(--rest, -2deg);
+  }
 }

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque } from "next/font/google";
+import { Balsamiq_Sans } from "next/font/google";
 import "./globals.css";
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+const balsamiq = Balsamiq_Sans({
+  variable: "--font-balsamiq",
   subsets: ["latin"],
+  weight: ["400", "700"],
   display: "swap",
 });
 
@@ -21,7 +22,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bricolage.variable} antialiased`}
+      className={`${balsamiq.variable} antialiased`}
     >
       <body className="bg-background text-foreground">{children}</body>
     </html>

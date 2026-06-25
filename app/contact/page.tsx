@@ -95,7 +95,7 @@ export default function ContactPage() {
               <button
                 onClick={handleSubmit}
                 disabled={isPending}
-                className="lego lego-green text-xs font-bold uppercase tracking-[0.2em]"
+                className="lego lego-sm lego-green -rotate-3 text-sm font-bold tracking-tight"
               >
                 {isPending ? "Sending..." : "Send"}
               </button>

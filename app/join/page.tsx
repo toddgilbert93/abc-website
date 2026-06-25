@@ -63,7 +63,7 @@ const inputClass =
   "w-full rounded-xl border-2 border-black/10 bg-white px-4 py-3 text-sm text-foreground transition-colors placeholder:text-black/30 focus:border-accent-cyan focus:outline-none focus:ring-2 focus:ring-accent-cyan/30";
 
 const primaryButtonClass =
-  "lego lego-green text-xs font-bold uppercase tracking-[0.2em]";
+  "lego lego-sm lego-green -rotate-3 text-sm font-bold tracking-tight";
 
 export default function JoinPage() {
   const [step, setStep] = useState(1);
