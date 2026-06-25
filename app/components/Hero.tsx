@@ -82,8 +82,8 @@ export default function Hero() {
         <div className="relative w-full max-w-sm">
           <div className="relative aspect-[2/3] w-full overflow-hidden">
             <Image
-              src="/bricks2.png"
-              alt="The Austin skyline, brickified"
+              src="/lego-tower.png"
+              alt="A tower built from Lego bricks"
               fill
               sizes="(max-width: 768px) 90vw, 384px"
               className="object-cover"
