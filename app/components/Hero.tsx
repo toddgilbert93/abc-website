@@ -41,6 +41,7 @@ export default function Hero() {
 
     let cssW = 1;
     let cssH = 1; // canvas CSS size, used to normalize/denormalize coordinates
+    let erased = false; // ABC-logo click wipes the board; stays blank until reload
 
     const applyInk = () => {
       ctx.fillStyle = INKS[ink];
@@ -112,7 +113,7 @@ export default function Hero() {
     // Repaint everything: saved defaults, then this session's strokes.
     const redrawAll = () => {
       wipe();
-      for (const s of HERO_DOODLES) drawStroke(s);
+      if (!erased) for (const s of HERO_DOODLES) drawStroke(s);
       for (const s of drawnRef.current) drawStroke(s);
       applyInk(); // restore live-drawing ink after the colour changes above
     };
@@ -136,8 +137,10 @@ export default function Hero() {
     window.addEventListener("load", redrawAll);
     document.fonts?.ready.then(() => redrawAll());
 
-    // Logo click (after its twirl) resets to the saved default doodles.
+    // Logo click (after its twirl) fully erases the board — defaults included —
+    // and it stays blank until the page is reloaded.
     const clear = () => {
+      erased = true;
       drawnRef.current = [];
       redrawAll();
     };
@@ -292,7 +295,7 @@ export default function Hero() {
       <canvas
         ref={canvasRef}
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0"
+        className="doodle-fade-in pointer-events-none absolute inset-0 z-0"
       />
 
       <div className="absolute inset-x-0 top-0 z-20">

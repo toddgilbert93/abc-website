@@ -39,6 +39,26 @@ body {
   opacity: 0;
 }
 
+/* Doodle canvas eases in after the hero content has begun entering. */
+@keyframes doodle-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.doodle-fade-in {
+  animation: doodle-fade-in 1s ease-in 0.5s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .doodle-fade-in {
+    animation: none;
+  }
+}
+
 .animation-delay-300 {
   animation-delay: 300ms;
 }
