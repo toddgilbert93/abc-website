@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import Link from "next/link";
 import Nav from "../components/Nav";
+import { AccentBlob, ErrorMessage, Input, Label, LegoButton, Textarea } from "../components/ui";
 import { sendContactMessage } from "./actions";
 
 export default function ContactPage() {
@@ -26,13 +26,10 @@ export default function ContactPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-background">
-      {/* Whimsy: floating accent blob */}
-      <div className="animate-float pointer-events-none absolute -left-20 top-48 -z-0 h-72 w-72 rounded-full bg-accent-coral/15 blur-3xl" />
+      <AccentBlob color="coral" className="-left-20 top-48 -z-0" />
 
-      {/* Top Bar */}
       <Nav />
 
-      {/* Content */}
       <div className="relative z-10 mx-auto max-w-xl px-6 pt-[12vh] pb-24">
         {sent ? (
           <div className="animate-fade-in-up text-center">
@@ -43,12 +40,13 @@ export default function ContactPage() {
               Thanks for reaching out — we&apos;ll get back to you soon.
             </p>
             <div className="mt-8">
-              <Link
+              <LegoButton
                 href="/"
-                className="lego lego-cyan text-xs font-bold uppercase tracking-[0.2em]"
+                variant="cyan"
+                className="text-xs font-bold uppercase tracking-[0.2em]"
               >
                 Back to Home
-              </Link>
+              </LegoButton>
             </div>
           </div>
         ) : (
@@ -59,46 +57,37 @@ export default function ContactPage() {
 
             <div className="animate-fade-in-up animation-delay-300 mt-10 space-y-6">
               <div>
-                <label className="mb-2 block text-xs uppercase tracking-widest text-foreground/50">
-                  Name
-                </label>
-                <input
+                <Label>Name</Label>
+                <Input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded-xl border-2 border-black/10 bg-white px-4 py-3 text-sm text-foreground transition-colors placeholder:text-black/30 focus:border-accent-cyan focus:outline-none focus:ring-2 focus:ring-accent-cyan/30"
                   placeholder="Your name"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-xs uppercase tracking-widest text-foreground/50">
-                  Message
-                </label>
-                <textarea
+                <Label>Message</Label>
+                <Textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   rows={5}
-                  className="w-full resize-none rounded-xl border-2 border-black/10 bg-white px-4 py-3 text-sm text-foreground transition-colors placeholder:text-black/30 focus:border-accent-cyan focus:outline-none focus:ring-2 focus:ring-accent-cyan/30"
                   placeholder="What's on your mind?"
                 />
               </div>
             </div>
 
-            {error && (
-              <div className="mt-4 rounded-xl border border-accent-coral/40 bg-accent-coral/10 px-4 py-3 text-sm text-[#b3373c]">
-                {error}
-              </div>
-            )}
+            {error && <ErrorMessage className="mt-4">{error}</ErrorMessage>}
 
             <div className="animate-fade-in-up animation-delay-600 mt-10">
-              <button
+              <LegoButton
+                variant="green"
+                               disabled={isPending}
                 onClick={handleSubmit}
-                disabled={isPending}
-                className="lego lego-sm lego-green -rotate-3 text-sm font-bold tracking-tight"
+                className="-rotate-3 text-sm font-bold tracking-tight"
               >
                 {isPending ? "Sending..." : "Send"}
-              </button>
+              </LegoButton>
             </div>
           </div>
         )}

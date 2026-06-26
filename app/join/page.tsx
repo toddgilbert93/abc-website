@@ -1,7 +1,15 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import Link from "next/link";
+import {
+  Checkbox,
+  ErrorMessage,
+  Input,
+  Label,
+  LegoButton,
+  OptionButton,
+  Textarea,
+} from "../components/ui";
 import { submitMember } from "./actions";
 
 interface FormData {
@@ -51,19 +59,6 @@ const STEP_SEGMENT_COLORS = [
   "bg-accent-cyan",
   "bg-accent-coral",
 ] as const;
-
-const optionClass = (selected: boolean) =>
-  `w-full rounded-xl border-2 px-4 py-3 text-left text-sm transition-all duration-200 ${
-    selected
-      ? "border-accent-cyan bg-accent-cyan/10 text-foreground"
-      : "border-black/10 bg-white text-foreground/70 hover:border-accent-cyan/50 hover:scale-[1.01]"
-  }`;
-
-const inputClass =
-  "w-full rounded-xl border-2 border-black/10 bg-white px-4 py-3 text-sm text-foreground transition-colors placeholder:text-black/30 focus:border-accent-cyan focus:outline-none focus:ring-2 focus:ring-accent-cyan/30";
-
-const primaryButtonClass =
-  "lego lego-sm lego-green -rotate-3 text-sm font-bold tracking-tight";
 
 export default function JoinPage() {
   const [step, setStep] = useState(1);
@@ -141,12 +136,13 @@ export default function JoinPage() {
             Thanks for joining Austin Build Club. We&apos;ll be in touch soon.
           </p>
           <div className="animate-fade-in-up animation-delay-600 mt-8">
-            <Link
+            <LegoButton
               href="/"
-              className="lego lego-cyan text-xs font-bold uppercase tracking-[0.2em]"
+              variant="cyan"
+              className="text-xs font-bold uppercase tracking-[0.2em]"
             >
               Back to Home
-            </Link>
+            </LegoButton>
           </div>
         </div>
       </main>
@@ -164,7 +160,6 @@ export default function JoinPage() {
           {STEP_SEGMENT_COLORS.map((color, index) => {
             const segmentStep = index + 1;
             const isFilled = step >= segmentStep;
-
             return (
               <div
                 key={segmentStep}
@@ -185,10 +180,8 @@ export default function JoinPage() {
               </h2>
               <div className="mt-8 space-y-6">
                 <div>
-                  <label className="mb-2 block text-xs uppercase tracking-widest text-foreground/50">
-                    Full Name *
-                  </label>
-                  <input
+                  <Label>Full Name *</Label>
+                  <Input
                     type="text"
                     value={formData.fullName}
                     onChange={(e) =>
@@ -197,15 +190,12 @@ export default function JoinPage() {
                         fullName: e.target.value,
                       }))
                     }
-                    className={inputClass}
                     placeholder="Your name"
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs uppercase tracking-widest text-foreground/50">
-                    Email Address *
-                  </label>
-                  <input
+                  <Label>Email Address *</Label>
+                  <Input
                     type="email"
                     value={formData.email}
                     onChange={(e) =>
@@ -214,15 +204,12 @@ export default function JoinPage() {
                         email: e.target.value,
                       }))
                     }
-                    className={inputClass}
                     placeholder="you@example.com"
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs uppercase tracking-widest text-foreground/50">
-                    LinkedIn
-                  </label>
-                  <input
+                  <Label>LinkedIn</Label>
+                  <Input
                     type="url"
                     value={formData.linkedin}
                     onChange={(e) =>
@@ -231,37 +218,17 @@ export default function JoinPage() {
                         linkedin: e.target.value,
                       }))
                     }
-                    className={inputClass}
                     placeholder="linkedin.com/in/yourprofile"
                   />
                 </div>
-                <label className="flex cursor-pointer items-center gap-3">
-                  <div
-                    className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-2 transition-colors ${
-                      formData.livesInAustin
-                        ? "border-accent-green bg-accent-green"
-                        : "border-black/20 bg-white"
-                    }`}
-                  >
-                    {formData.livesInAustin && (
-                      <span className="text-xs font-bold text-[#0a1014]">✓</span>
-                    )}
-                  </div>
-                  <input
-                    type="checkbox"
-                    checked={formData.livesInAustin}
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        livesInAustin: e.target.checked,
-                      }))
-                    }
-                    className="hidden"
-                  />
-                  <span className="text-sm text-foreground/70">
-                    I currently live in the Austin Texas Metropolitan Area
-                  </span>
-                </label>
+                <Checkbox
+                  checked={formData.livesInAustin}
+                  onChange={(checked) =>
+                    setFormData((prev) => ({ ...prev, livesInAustin: checked }))
+                  }
+                >
+                  I currently live in the Austin Texas Metropolitan Area
+                </Checkbox>
               </div>
             </div>
           )}
@@ -276,15 +243,13 @@ export default function JoinPage() {
               </p>
               <div className="mt-8 space-y-3">
                 {INTEREST_OPTIONS.map((option) => (
-                  <button
+                  <OptionButton
                     key={option.value}
+                    selected={formData.interests.includes(option.value)}
                     onClick={() => toggleInterest(option.value)}
-                    className={optionClass(
-                      formData.interests.includes(option.value)
-                    )}
                   >
                     {option.label}
-                  </button>
+                  </OptionButton>
                 ))}
               </div>
             </div>
@@ -300,20 +265,18 @@ export default function JoinPage() {
               </p>
               <div className="mt-8 space-y-3">
                 {EXPERIENCE_OPTIONS.map((option) => (
-                  <button
+                  <OptionButton
                     key={option.value}
+                    selected={formData.aiExperience === option.value}
                     onClick={() =>
                       setFormData((prev) => ({
                         ...prev,
                         aiExperience: option.value,
                       }))
                     }
-                    className={optionClass(
-                      formData.aiExperience === option.value
-                    )}
                   >
                     {option.label}
-                  </button>
+                  </OptionButton>
                 ))}
               </div>
             </div>
@@ -327,19 +290,19 @@ export default function JoinPage() {
               </h2>
               <div className="mt-8 space-y-3">
                 {TIME_OPTIONS.map((option) => (
-                  <button
+                  <OptionButton
                     key={option.value}
+                    selected={formData.weeklyTime === option.value}
                     onClick={() =>
                       setFormData((prev) => ({
                         ...prev,
                         weeklyTime: option.value,
                       }))
                     }
-                    className={optionClass(formData.weeklyTime === option.value)}
                   >
                     {option.label}{" "}
                     <span className="text-foreground/40">({option.tag})</span>
-                  </button>
+                  </OptionButton>
                 ))}
               </div>
             </div>
@@ -351,7 +314,7 @@ export default function JoinPage() {
                 What are you trying to build or understand right now?
               </h2>
               <div className="mt-8">
-                <textarea
+                <Textarea
                   value={formData.currentProject}
                   onChange={(e) =>
                     setFormData((prev) => ({
@@ -360,7 +323,6 @@ export default function JoinPage() {
                     }))
                   }
                   rows={5}
-                  className={`${inputClass} resize-none`}
                   placeholder="Tell us what you're working on..."
                 />
               </div>
@@ -368,17 +330,15 @@ export default function JoinPage() {
           )}
         </div>
 
-        {/* Error message */}
         {submitError && (
-          <div className="mt-4 rounded-xl border border-accent-coral/40 bg-accent-coral/10 px-4 py-3 text-sm text-[#b3373c]">
-            {submitError}
-          </div>
+          <ErrorMessage className="mt-4">{submitError}</ErrorMessage>
         )}
 
         {/* Navigation */}
         <div className="mt-10 flex items-center justify-between">
           {step > 1 ? (
             <button
+              type="button"
               onClick={handleBack}
               className="text-xs uppercase tracking-[0.15em] text-foreground/40 transition-colors hover:text-accent-coral"
             >
@@ -388,17 +348,22 @@ export default function JoinPage() {
             <div />
           )}
           {step < TOTAL_STEPS ? (
-            <button onClick={handleNext} className={primaryButtonClass}>
+            <LegoButton
+              variant="green"
+                           onClick={handleNext}
+              className="-rotate-3 text-sm font-bold tracking-tight"
+            >
               Next
-            </button>
+            </LegoButton>
           ) : (
-            <button
+            <LegoButton
+              variant="green"
+                           disabled={isPending}
               onClick={handleSubmit}
-              disabled={isPending}
-              className={primaryButtonClass}
+              className="-rotate-3 text-sm font-bold tracking-tight"
             >
               {isPending ? "Submitting..." : "Submit"}
-            </button>
+            </LegoButton>
           )}
         </div>
       </div>

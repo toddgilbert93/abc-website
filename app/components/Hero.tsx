@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import Nav from "./Nav";
+import { AccentBlob, LegoButton } from "./ui";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -159,25 +159,28 @@ export default function Hero() {
           </p>
 
           <div className="animate-fade-in-up animation-delay-600 mt-2 flex w-full max-w-xs flex-col items-center">
-            <Link
+            <LegoButton
               href="/join"
-              className="lego lego-sm lego-coral hinge hinge-build relative z-10 text-sm font-bold tracking-tight"
+              variant="coral"
+                           className="hinge hinge-build relative z-10 text-sm font-bold tracking-tight"
             >
               Build
-            </Link>
+            </LegoButton>
             <div className="-mt-5 flex w-full items-start justify-between max-[420px]:mt-5 max-[420px]:flex-wrap max-[420px]:justify-center max-[420px]:gap-x-2 max-[420px]:gap-y-5">
-              <Link
+              <LegoButton
                 href="/about"
-                className="lego lego-sm lego-cyan hinge hinge-about text-sm font-bold tracking-tight"
+                variant="cyan"
+                               className="hinge hinge-about text-sm font-bold tracking-tight"
               >
                 About
-              </Link>
-              <Link
+              </LegoButton>
+              <LegoButton
                 href="/contact"
-                className="lego lego-sm lego-green hinge hinge-contact text-sm font-bold tracking-tight"
+                variant="green"
+                               className="hinge hinge-contact text-sm font-bold tracking-tight"
               >
                 Contact
-              </Link>
+              </LegoButton>
             </div>
           </div>
         </div>
@@ -185,7 +188,7 @@ export default function Hero() {
 
       {/* Right column — framed brickified image (md and up only) */}
       <div className="relative z-10 hidden flex-1 items-center justify-center overflow-hidden px-8 py-12 sm:p-12 md:flex">
-        <div className="animate-float pointer-events-none absolute h-72 w-72 rounded-full bg-accent-cyan/20 blur-3xl" />
+        <AccentBlob color="cyan" />
         <div className="relative w-full max-w-sm">
           <div className="relative aspect-[2/3] w-full overflow-hidden">
             <Image
