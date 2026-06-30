@@ -43,7 +43,7 @@ export default function AboutPhotoStack() {
   };
 
   return (
-    <div className="animate-fade-in-up relative mx-auto mb-14 h-72 w-full max-w-sm sm:h-80">
+    <div className="animate-fade-in-up relative mx-auto mb-24 h-72 w-full max-w-sm sm:h-80">
       {stack.map((photo, index) => (
         <button
           key={photo.id}

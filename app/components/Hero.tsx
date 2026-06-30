@@ -167,7 +167,7 @@ export default function Hero() {
     let current: DoodleStroke | null = null; // stroke being recorded
 
     const onDown = (e: PointerEvent) => {
-      if (e.pointerType === "touch" || e.button !== 0) return;
+      if (e.button !== 0) return;
       if (!overBackground(e.target)) return;
       e.preventDefault(); // stop native image-drag / text selection
       down = toLocal(e);
@@ -289,7 +289,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="hero-draw-zone relative flex min-h-screen select-none flex-col bg-background md:flex-row"
+      className="hero-draw-zone relative flex min-h-screen touch-none select-none flex-col bg-background md:flex-row"
     >
       {/* Marker doodle canvas — sits behind the content */}
       <canvas
