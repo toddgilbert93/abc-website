@@ -50,7 +50,7 @@ export default function AboutPhotoStack() {
           type="button"
           aria-label={`Move ${photo.alt} to the back of the stack`}
           onClick={() => sendToBack(photo.id)}
-          className={`absolute overflow-hidden rounded-2xl border-8 border-white bg-white shadow-xl shadow-black/15 transition-transform duration-300 hover:scale-[1.02] ${photo.frame} ${photo.rotation}`}
+          className={`absolute cursor-pointer overflow-hidden rounded-2xl border-8 border-white bg-white shadow-xl shadow-black/15 transition-transform duration-300 hover:scale-[1.02] ${photo.frame} ${photo.rotation}`}
           style={{
             zIndex: index + 1,
             translate: `${index * 4}px ${index * 6}px`,

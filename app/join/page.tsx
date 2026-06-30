@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import {
   Checkbox,
@@ -61,9 +63,11 @@ const STEP_SEGMENT_COLORS = [
 ] as const;
 
 export default function JoinPage() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [isPending, startTransition] = useTransition();
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     email: "",
@@ -115,6 +119,10 @@ export default function JoinPage() {
     });
   };
 
+  const handleLogoClick = () => {
+    setShowLeaveConfirm(true);
+  };
+
   const toggleInterest = (value: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -151,6 +159,54 @@ export default function JoinPage() {
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-background px-6">
+      <button
+        type="button"
+        aria-label="Leave join flow"
+        onClick={handleLogoClick}
+        className="absolute left-6 top-4 z-20 block w-fit cursor-pointer transition-transform duration-200 hover:-rotate-3 hover:scale-110 sm:left-10"
+      >
+        <Image src="/logo2.svg" alt="ABC" width={44} height={44} priority />
+      </button>
+
+      {showLeaveConfirm && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="leave-join-title"
+          className="fixed inset-0 z-30 flex items-center justify-center bg-background/80 px-6 backdrop-blur-sm"
+        >
+          <div className="animate-step-enter w-full max-w-sm rounded-2xl border border-black/10 bg-white p-6 shadow-2xl shadow-black/10">
+            <h2
+              id="leave-join-title"
+              className="text-lg font-medium tracking-tight text-foreground"
+            >
+              Leave this page?
+            </h2>
+            <p className="mt-3 text-sm font-light leading-relaxed tracking-wide text-foreground/60">
+              Your progress will not be saved..
+            </p>
+            <div className="mt-6 flex items-center justify-end gap-4">
+              <LegoButton
+                variant="green"
+                size="sm"
+                onClick={() => setShowLeaveConfirm(false)}
+                className="rotate-2 text-xs font-bold tracking-tight"
+              >
+                Stay
+              </LegoButton>
+              <LegoButton
+                variant="coral"
+                size="sm"
+                onClick={() => router.push("/")}
+                className="-rotate-2 text-xs font-bold tracking-tight"
+              >
+                Leave
+              </LegoButton>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="w-full max-w-xl">
         {/* Stepper */}
         <p className="mb-3 text-xs uppercase tracking-[0.2em] text-foreground/40">
