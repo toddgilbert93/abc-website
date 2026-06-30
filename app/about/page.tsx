@@ -1,5 +1,6 @@
 import Nav from "../components/Nav";
 import { AccentBlob, LegoButton } from "../components/ui";
+import AboutPhotoStack from "./AboutPhotoStack";
 
 export default function AboutPage() {
   return (
@@ -9,30 +10,17 @@ export default function AboutPage() {
       <Nav />
 
       <div className="relative z-10 mx-auto max-w-2xl px-6 pt-[12vh] pb-24">
+        <AboutPhotoStack />
+
         <h1 className="animate-fade-in-up text-lg font-medium leading-snug tracking-tight text-foreground sm:text-xl">
-          The future is uncertain.
-          <br />
-          Your role is unwritten.
+          We are builders
         </h1>
 
-        <div className="animate-fade-in-up animation-delay-300 mt-10 space-y-6 text-sm font-light leading-relaxed tracking-wide text-foreground/70">
-          <p>
-            Austin Build Club is a space for local talent to connect,
-            collaborate, and create. Whether you are an experienced developer
-            shipping complex systems, or a product marketer experimenting with
-            process automation, we believe that everyone has something to
-            offer, and we all have room to learn.
-          </p>
-
-          <p>
-            There are two requirements to be a part of this community. One, you
-            must live in Austin. And two, you must be always actively building
-            something. Personal websites are fine, disposable tools are great,
-            crazy concepts that fail are amazing.
-          </p>
-
-          <p>If this gets you excited, we look forward to meeting you :)</p>
-        </div>
+        <p className="animate-fade-in-up animation-delay-300 mt-10 text-sm font-light leading-relaxed tracking-wide text-foreground/70">
+          Austin Build Club is a space for experimenting, connecting, and having
+          fun. We do not believe AI is good or bad, but rather a powerful tool
+          when used responsibly.
+        </p>
 
         <div className="animate-fade-in-up animation-delay-600 mt-10">
           <LegoButton
